@@ -1,7 +1,3 @@
-Got it 👍 Here’s a simple README.md file you can use for your SQL learning project.
-
-I’ll make it structured like a study guide + practice repo style so you can add your queries as you go.
-
 📘 SQL Learning Journey
 
 Welcome to my SQL Learning Repository 🚀
