@@ -29,17 +29,17 @@ GROUP BY c.name,f.title,f.rental_rate
 ORDER BY c.name,rental_rate DESC;
 
 --Find the top 5 customers by total payments using a CTE.
-WITH total_payments AS
+WITH CTE AS
 (
-SELECT c.customer_id,CONCAT(c.first_name,' ',c.last_name) as customer_name,
+SELECT c.customer_id,CONCAT(c.first_name, ' ',c.last_name) AS customer_name,
 SUM(p.amount) as total_payment
 FROM customer c
-JOIN payment p 
+JOIN payment p
 ON p.customer_id = c.customer_id
 GROUP BY c.customer_id,c.first_name,c.last_name
 )
 SELECT customer_name,total_payment
-FROM total_payments
+FROM CTE
 ORDER BY total_payment DESC
 LIMIT 5;
 
@@ -55,10 +55,11 @@ CROSS JOIN avg_films_len a
 WHERE f.length > a.avg_len
 ORDER BY a.avg_len DESC;
 
---Find customers who rented more than 10 films.
+--Find customers who rented more than 30 films.
 WITH customer_rental AS
-( SELECT CONCAT(c.first_name,' ',c.last_name) AS customer_name,
-COUNT(r.rental_id) as rental_count
+(
+SELECT c.customer_id,CONCAT(c.first_name,' ',c.last_name) as customer_name,
+COUNT(r.rental_id) AS rental_count
 FROM customer c
 JOIN rental r
 ON r.customer_id = c.customer_id
@@ -66,7 +67,8 @@ GROUP BY c.customer_id,c.first_name,c.last_name
 )
 SELECT customer_name,rental_count
 FROM customer_rental
-WHERE rental_count > 10;
+WHERE rental_count >= 30
+ORDER BY rental_count DESC;
 
 --Show each city with total customers.
 WITH CTE AS

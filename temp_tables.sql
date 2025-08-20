@@ -112,3 +112,17 @@ FROM latest_running
 WHERE rn = 1
 ORDER BY running_total DESC
 LIMIT 5;
+
+-- Function to return top 10 films
+CREATE OR REPLACE FUNCTION top_10_films()
+RETURNS TABLE(film_id INT, title TEXT, length INT, rental_rate NUMERIC) AS $$
+BEGIN
+    RETURN QUERY
+    SELECT f.film_id, f.title, f.length, f.rental_rate
+    FROM film f
+    ORDER BY f.rental_rate DESC
+    LIMIT 10;
+END;
+$$ LANGUAGE plpgsql;
+
+SELECT * FROM top_10_films();
