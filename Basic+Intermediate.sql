@@ -2,7 +2,8 @@
 
 SELECT title 
 FROM film 
-WHERE release_year = 2006
+WHERE release_year = 2006;
+
 
 --Find the first and last name of customers who live in Canada.
 
